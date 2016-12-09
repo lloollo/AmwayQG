@@ -55,7 +55,7 @@ public class action {
 	    				//步骤具体操作
 	    				action.actioncase(driver, tc);  
 	    				//结果校验
-	    				List<String> anwLogs =action.ALcaseCheckresult(driver, tc,DirPathname,i);
+	    				List<String> anwLogs =ALcaseCheckresult(driver, tc,DirPathname,i);
 	    				sr.setStepResult(anwLogs.get(0));
 	    				sr.setStepLog(anwLogs.get(1));
 	    				sr.setTec(tc);
@@ -99,7 +99,7 @@ public class action {
 	    				//步骤具体操作
 	    				seleniumcase(driver, tc);  
 	    				//结果校验
-	    				List<String> anwLogs =seleniumCheckresult(driver, tc,DirPathname,i);
+	    				List<String> anwLogs =ALcaseCheckresult(driver, tc,DirPathname,i);
 	    				sr.setStepResult(anwLogs.get(0));
 	    				sr.setStepLog(anwLogs.get(1));
 	    				sr.setTec(tc);
@@ -113,6 +113,7 @@ public class action {
 	    	//3case结果统计
 	    	HtmlDoc.CompleteCount(Total,Passed,Failed);		
 		}
+		static actionDetil ad =new actionDetil();
 		public static void actioncase(AppiumDriver driver, testcase tc) {
 			actionDetil ad =new actionDetil();	
 			seleniumDetil se = new seleniumDetil();
@@ -125,7 +126,7 @@ public class action {
 				break;
 				//输入Url访问页面
 			case "$getUrl":
-				se.dogetUrl(Wdrive, tc);
+				ad.dogetUrl(Wdrive, tc);
 				break;
 				//对象中输入信息
 			case "$sendkey":
@@ -138,10 +139,7 @@ public class action {
 				//滑动到当前对象
 			case "$scrollToE":
 				se.doscrollToE(Wdrive, tc);
-				break;		
-			case "$tiaoshi":
-				se.dotiaoshi(Wdrive, tc);
-				break;		
+				break;				
 			//点击对象
 			case "click":
 				ad.doclick(driver, tc);
@@ -279,6 +277,7 @@ public class action {
 				ad.dosum(driver,tc);
 				break;	
 			default:
+				System.out.println("操作关键字错误！！");
 				break;
 			}
 			// TODO Auto-generated method stub			 	
@@ -289,29 +288,26 @@ public class action {
 			//$ - selenium测试关键字
 			//点击对象
 			case "$click":			
-				se.doclick(Wdrive, tc);
+				ad.doclick(Wdrive, tc);
 				break;
 				//输入Url访问页面
 			case "$getUrl":
-				se.dogetUrl(Wdrive, tc);
+				ad.dogetUrl(Wdrive, tc);
 				break;
 				//对象中输入信息
 			case "$sendkey":
-				se.dosendkey(Wdrive, tc);
+				ad.dosendkey(Wdrive, tc);
 				break;
 				//对象中输入信息
 			case "$allow":
-				se.doallow(Wdrive, tc);
+				ad.doallow(Wdrive, tc);
 				break;		
 				//滑动到当前对象
 			case "$scrollToE":
 				se.doscrollToE(Wdrive, tc);
-				break;		
-			case "$tiaoshi":
-				se.dotiaoshi(Wdrive, tc);
-				break;		
-			
+				break;				
 			default:
+				System.out.println("操作关键字错误！！");
 				break;
 			}
 			// TODO Auto-generated method stub			 	
@@ -361,50 +357,7 @@ public class action {
 			//SnapShot.JustSnapShot(driver, dirPathname, tc.getCaseID() + "-" + i+".png");
 			return anlogs;				
 		}	
-		public static List<String> seleniumCheckresult(WebDriver driver, testcase tc, String dirPathname, int i) {
-//			toolsforObj.sleeptow();
-			List<String> anlogs = new ArrayList<String>();
-//			String passfailed = "pass";
-//			String anwLogs = "success";	
-//			if(!tc.getCaseresult().isEmpty()){
-//				if(tc.getCaseresult().contains(";")){
-//					String[] results = toolsforObj.SeparateBySemicolon(tc.getCaseresult()); 
-//					String temp1 = getResulyTextFirst(driver, results[0]);
-//					String temp2 = temp1;
-//					if(results[1] !=null){
-//						temp2 = getResulyTextSecond(driver, results[1]);
-//					}		
-//					if((!temp1.contains(temp2))&&(!temp2.contains(temp1))){
-//						passfailed = "failed";
-//						anwLogs ="Text is not rigth";
-//					}
-//				}else {
-//					WebElement webElement =  getElement.getElementObject(driver,tc.getCaseresult());	
-//					for (int j = 0; j < 3; j++) {
-//						if(webElement != null){
-//							break;
-//						}
-//						toolsforObj.sleeptow();
-//					}
-//					
-//					if(webElement == null){			
-//						passfailed ="failed";
-//						anwLogs ="not find element";
-//					}		
-//				}
-//			}else {
-//				anwLogs ="no results!!";
-//			}
-//			//记录日志
-//			anlogs.add(passfailed);
-//			anlogs.add(anwLogs);
-//			//手机截屏
-//			if(passfailed.equals("failed")){
-//				SnapShot.JustSnapShot(driver, dirPathname, tc.getCaseID() + "-" + i+".png");
-//			}
-//			//SnapShot.JustSnapShot(driver, dirPathname, tc.getCaseID() + "-" + i+".png");
-			return anlogs;				
-		}	
+		
 		//校验第一个Text获取
 		public static String getResulyTextFirst(WebDriver driver,String ResulyT) {
 			String resulytext = ResulyT;

@@ -23,38 +23,13 @@ import mains.AmAppMain;
 import seleniums.seleniumDetil;
 
 public class actionDetil {	
-		public void dogetUrl(WebDriver driver, testcase tc) {
-			
-				
-				//ios 和 android分别处理	
-				if(ReadXml.actiononMobile.contains("IOS")){
-					//driver.get("https://bc-ecomft1.amplus.com.cn/");
-					String URLs = tc.getCaseElement();
-		    		if(URLs != null){   	
-		    			URLs = toolsforObj.getStrForSend(tc.getCaseElement());	
-		    			driver.get(URLs);
-		    		} 				
-				}else {
-					if(ReadXml.system.contains("Windows")){
-						String URLs = tc.getCaseElement();
-			    		if(URLs != null){   			
-			    			URLs = toolsforObj.getStrForSend(tc.getCaseElement());				    			
-			    			driver.get(URLs);
-			    		} 
-					}else {
-//						WebElement webElement =getElement.getElementObject(driver, "#Chromurls");//"id", "com.android.chrome:id/url_bar"
-//				    	if(webElement != null){		
-//				    		webElement.clear();
-//				    		String temp = tc.getCaseElement();
-//				    		if(temp != null){   			
-//				    			temp = toolsforObj.getStrForSend(tc.getCaseElement());				    			
-//				    			sendKysNow(webElement,temp);
-//				    			driver.sendKeyEvent(66);
-//				    		} 				
-//						}		    	
-					}							    	
-				}
-				toolsforObj.sleepone();
+		public void dogetUrl(WebDriver driver, testcase tc) {		
+			String URLs = tc.getCaseElement();
+    		if(URLs != null){   	
+    			URLs = toolsforObj.getStrForSend(tc.getCaseElement());	
+    			driver.get(URLs);
+    		} 								
+			toolsforObj.sleepone();
 		}
 		public void dogetUrlLaunch(AppiumDriver driver, testcase tc) {
 			// TODO Auto-generated method stub
@@ -286,8 +261,7 @@ public class actionDetil {
 					toolsforObj.sleepfive();
 				} catch (Exception e) {
 					// TODO: handle exception
-				}
-				
+				}	
 			}
 		}
 		public void dogetTextbytext(WebDriver driver, testcase tc) {
