@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd";>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style media="all" type="text/css">
+    #centerzhongjian{
+        margin-left:;
+        background-color:;
+        float:left;
+        width:50%;
+        height:100%;
+    } 
+</style>
+<title>$TaskName Test Details</title>
+<script type="text/javascript"> 
+		function ShopConfirm(currentImage){ 
+        var ShopConfirmLayer=document.getElementById("ShopConfirmLayer"); 
+        var webBgLayer=document.getElementById("webBgLayer"); 
+        var ShopConfirmLr=document.getElementById("ShopConfirmLr"); 
+	     ShopConfirmLr.style.backgroundImage="url("+currentImage+")"; 
+	     ShopConfirmLayer.style.display="";//显示内容层，显示覆盖层
+	
+	     ShopConfirmLayer.style.left=parseInt((document.documentElement.scrollWidth-ShopConfirmLayer.offsetWidth)/2)+document.documentElement.scrollLeft+"px"; 
+	     ShopConfirmLayer.style.top=Math.abs(parseInt((document.documentElement.clientHeight-ShopConfirmLayer.offsetHeight)/2))+document.documentElement.scrollTop+"px"; //为内容层设置位置
+	     webBgLayer.style.display=""; 
+	     webBgLayer.style.height=document.documentElement.scrollHeight+"px"; //为覆盖层设置高度 
+	    } 
+	    function CloseShopConfirm(){ 
+	        var ShopConfirmLayer=document.getElementById("ShopConfirmLayer"); 
+	        var webBgLayer=document.getElementById("webBgLayer"); 
+	        ShopConfirmLayer.style.display="none"; 
+	        webBgLayer.style.display="none"; 
+	    } 
+	</script>
+</head>
+<body>
+<h1>$TaskName Test Details</h1>
+<h3><a href="$href">[[Return>>]]</a></h3>
+<table border="1" cellspacing="1" cellpadding="8" style="border: #000000; border-style: solid; border-width: 1px ">
+<tr><td align="right" style="BACKGROUND-COLOR:#333399;COLOR:white;font-weight:bold;">Case Name: </td><td>$TaskName</td></tr>
+<tr><td align="right" style="BACKGROUND-COLOR:#333399;COLOR:white;font-weight:bold;">Steps ID: </td><td>$StepsID</td></tr>
+<tr><td align="right" style="BACKGROUND-COLOR:#333399;COLOR:white;font-weight:bold;">Test Time: </td><td>$TestTime</td></tr>
+<tr><td align="right" style="BACKGROUND-COLOR:#333399;COLOR:white;font-weight:bold;">Test Result: </td><td style="color:$color;font-weight:bold;">$TestResult</td></tr>
+</table>
+<br />
+<div id="ShopConfirmLayer" style="position:absolute;top:300px;left:100px;z-index:900;border:0px red solid;width:500px;display:none;">
+	
+		<input id="ShopConfirmLr" type="button"  style="width:720px;height:1280px;background-size: cover;" onclick="CloseShopConfirm()">
+		</div>
+		<!--覆盖层--> 
+		<div id="webBgLayer" style="position:absolute;top:0px;left:0px;z-index:899;background-color:gray;height:100%;width:100%;display:none;-moz-opacity:0.9;filter:alpha(opacity=50);"></div>
+<div id="centerzhongjian" style="OVERFLOW-Y: auto; OVERFLOW-X:hidden;">
+<table border="1" cellspacing="1" cellpadding="8" style="table-layout:fixed;border: #000000; border-style: solid; border-width: 1px " width="90%">
+<tr style="BACKGROUND-COLOR:#333399;COLOR:white;font-weight:bold;"><td>CaseID</td></tr>
+<tr><td>$CaseID</td></tr>
+<tr style="BACKGROUND-COLOR:#333399;COLOR:white;font-weight:bold;"><td>TaskName </td></tr>
+<tr><td>$TaskName</td></tr>
+<tr style="BACKGROUND-COLOR:#333399;COLOR:white;font-weight:bold;"><td>Steps ID</td></tr>
+<tr><td>$StepsID</td></tr>
+<tr style="BACKGROUND-COLOR:#333399;COLOR:white;font-weight:bold;"><td>Case Steps</td></tr>
+<tr><td>$StepName</td></tr>
+<tr style="BACKGROUND-COLOR:#333399;COLOR:white;font-weight:bold;"><td>Case Expected</td></tr>
+<tr><td>$CaseExpected</td></tr>
+<tr style="BACKGROUND-COLOR:#333399;COLOR:white;font-weight:bold;"><td>Case action</td></tr>
+<tr><td>$Caseaction</td></tr>
+<tr style="BACKGROUND-COLOR:#333399;COLOR:white;font-weight:bold;"><td> TestResult</td></tr>
+<tr><td style="color:$color;font-weight:bold;">$TestResult</td></tr>
+<tr style="BACKGROUND-COLOR:#333399;COLOR:white;font-weight:bold;"><td>Case log</td></tr>
+<tr><td>$Caselog</td></tr>
+</table>
+</div>
+点击放大

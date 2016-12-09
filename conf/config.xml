@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<deconfig>
+    <!-- Android -->
+    <action>
+		<platformName>AndroidL</platformName><!-- 设置测试的手机 -->
+		<Excel-name>Amway_Case</Excel-name><!-- 设置测试的Case的Excel-name-->		
+		<interface>4723</interface><!-- 设置Appuim的测试接口，4723默认端口 -->
+		<system>Mac</system><!-- 系统 Mac & Windows -->
+	</action>
+	<apps>
+		<androidapps>AmwayHub</androidapps><!-- 安卓测试包名 apps文件文件下 -->
+	</apps>
+    <Android>
+		<platformName>Android</platformName><!--手机系统类型-->
+		<deviceName>320419b6a310711f</deviceName>	<!--手机名-->
+		<platformVersion>5.0.2</platformVersion><!--版本号-->
+		<unicodeKeyboard>True</unicodeKeyboard><!--设置键盘-->
+		<resetKeyboard>True</resetKeyboard>
+		<appPackage>com.android.chrome</appPackage><!--APP名称-->
+		<appActivity>com.google.android.apps.chrome.Main</appActivity><!--APP启动项-->
+	</Android>
+	<AndroidZ>
+		<platformName>Android</platformName><!--手机系统类型-->
+		<deviceName>e1a1b301</deviceName>	<!--手机名-->
+		<platformVersion>5.1</platformVersion><!--版本号-->
+		<unicodeKeyboard>True</unicodeKeyboard><!--设置键盘-->
+		<resetKeyboard>True</resetKeyboard>
+		<appPackage>com.amway.hub.phone</appPackage><!--APP名称-->
+		<appActivity>page.login.LoginActivity</appActivity><!--APP启动项-->
+	</AndroidZ>
+	<AndroidL>
+		<platformName>Android</platformName><!--手机系统类型-->
+		<deviceName>2233eed</deviceName>	<!--手机名-->
+		<platformVersion>5.1.1</platformVersion><!--版本号-->
+		<unicodeKeyboard>True</unicodeKeyboard><!--设置键盘-->
+		<resetKeyboard>True</resetKeyboard>
+		<appPackage>com.amway.hub.phone</appPackage><!--APP名称-->
+		<appActivity>page.login.LoginActivity</appActivity><!--APP启动项-->
+	</AndroidL>
+	<AndroidXM>
+		<platformName>Android</platformName><!--手机系统类型-->
+		<deviceName>e1a1b301</deviceName>	<!--手机名-->
+		<platformVersion>5.1.1</platformVersion><!--版本号-->
+		<unicodeKeyboard>True</unicodeKeyboard><!--设置键盘-->
+		<resetKeyboard>True</resetKeyboard>
+		<appPackage>com.android.chrome</appPackage><!--APP名称-->
+		<appActivity>com.google.android.apps.chrome.Main</appActivity><!--APP启动项-->
+	</AndroidXM>
+	<AndroidMei>
+		<platformName>Android</platformName><!--手机系统类型-->
+		<deviceName>85GACMH9LRQW</deviceName>	<!--手机名-->
+		<platformVersion>5.0.1</platformVersion><!--版本号-->
+		<unicodeKeyboard>True</unicodeKeyboard><!--设置键盘-->
+		<resetKeyboard>True</resetKeyboard>
+		<appPackage>com.android.chrome</appPackage><!--APP名称-->
+		<appActivity>com.google.android.apps.chrome.Main</appActivity><!--APP启动项-->
+	</AndroidMei>
+	<!-- MAC iPhone Simulator-->
+	<IOSW>
+		<platformName>IOS</platformName><!--手机系统类型-->
+		<deviceName>iPhone6</deviceName>	<!--手机名-->	
+		<platformVersion>8.3</platformVersion><!--版本号-->
+		<udid>ddf3607f18a57a8ff204d10c1b09b7a9b1ce2bc3</udid><!--手机Udid-->
+		<bundleId>/Users/libra/Library/Developer/Xcode/DerivedData/SafariLauncher-gqpdnlbpaoxzaofboctvpnprideq/Build/Products/Debug-iphoneos/SafariLauncher.app</bundleId>
+		<!--APP安装包路径-->
+		<browserName>safari</browserName><!--App-->
+		<safariAllowPopups>true</safariAllowPopups><!--App-->
+	</IOSW>
+	<IOSC>
+		<platformName>IOS</platformName><!--手机系统类型-->
+		<deviceName>lloollo</deviceName>	<!--手机名-->	
+		<platformVersion>9.3.3</platformVersion><!--版本号-->
+		<udid>cca87b2c652cd0ca731f985189a757dcd1eaa293</udid><!--手机Udid-->
+		<bundleId>/Users/libra/Library/Developer/Xcode/DerivedData/SafariLauncher-gqpdnlbpaoxzaofboctvpnprideq/Build/Products/Debug-iphoneos/SafariLauncher.app</bundleId>
+		<!--APP安装包路径-->
+		<browserName>safari</browserName><!--App-->
+		<safariAllowPopups>true</safariAllowPopups><!--App-->
+	</IOSC>
+	<IOS>
+		<platformName>IOS</platformName><!--手机系统类型-->
+		<deviceName>iPhone Simulator</deviceName>	<!--手机名-->	
+		<platformVersion>9.3</platformVersion><!--版本号-->
+		<browserName>safari</browserName><!--App-->
+	</IOS>
+</deconfig>
