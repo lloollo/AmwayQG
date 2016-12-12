@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <deconfig>
     <!-- Android -->
     <action>
@@ -10,6 +9,7 @@
 	</action>
 	<apps>
 		<androidapps>AmwayHub</androidapps><!-- 安卓测试包名 apps文件文件下 -->
+		<webselenium>OFF</webselenium><!-- 是否启动火狐浏览器辅助 -->
 	</apps>
     <Android>
 		<platformName>Android</platformName><!--手机系统类型-->

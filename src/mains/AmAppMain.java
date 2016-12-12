@@ -17,7 +17,7 @@ public class AmAppMain {
     @Before  
     public void confiDriver() throws Exception {  
     	//配置Appium
-    	webDriver = configures.configWebDriver();
+    	webDriver = configures.configWebDriver("app");
     	driver = configures.configAppium();
     	System.out.println("=====configure OVER=====");
     } 

@@ -27,16 +27,24 @@ public class configures {
     public static String appiumURL = "http://127.0.0.1:"+(String) ReadXml.readxml("action").get("interface")+"/wd/hub";
     public static String passfailed = "pass";
     public static String anwLogs  = "Success";
-    public static  Map<String, String> forTempString = new HashMap<>();
-    
+    public static  Map<String, String> forTempString = new HashMap<>();  
 	public static AppiumDriver driver;
-	public static WebDriver webDriver;
-	public static WebDriver configWebDriver(){
+	public static WebDriver configWebDriver(String context){
 		WebDriver webDriver = null;
 		try {
-			webDriver =  new FirefoxDriver();
-			webDriver.manage().window().maximize();
+			if(context.contains("app")){
+				if(((String) ReadXml.readxml("apps").get("webselenium")).contains("ON")){
+					webDriver =  new FirefoxDriver();
+					webDriver.manage().window().maximize();
+				}
+			}
+			if(context.contains("web")){
+				webDriver =  new FirefoxDriver();
+				webDriver.manage().window().maximize();
+			}
+					
 		} catch (Exception e) {
+			webDriver= driver;
 			System.out.println("webDriver启动失败");// TODO: handle exception
 		}
 		return webDriver;	

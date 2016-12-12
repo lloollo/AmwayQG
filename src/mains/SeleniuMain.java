@@ -9,12 +9,12 @@ import Toconfigure.configures;
 import action.action;
 import io.appium.java_client.AppiumDriver;
 
-public class SeleniumTest {
+public class SeleniuMain {
     public static WebDriver driver;
     @Before  
     public void confiDriver() throws Exception {  
     	//配置Appium
-    	driver = configures.configWebDriver();
+    	driver = configures.configWebDriver("web");
     	System.out.println("=====configure OVER=====");
     } 
     @Test  
