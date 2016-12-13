@@ -8,8 +8,11 @@ import org.junit.After;
 import org.junit.Before;  
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
 import Toconfigure.configures;
 import action.action;
+import forobject.ReadXml;
 import io.appium.java_client.AppiumDriver; 
 public class AmAppMain {
     public AppiumDriver driver; 
@@ -31,7 +34,7 @@ public class AmAppMain {
     @After  
     public void leaveAppium() throws Exception {  
     	//退出  	
-    	webDriver.quit();
+    	configures.quirDriver(webDriver);
     	driver.quit();  
     	System.out.println("=====Exit OVER=====");
     } 

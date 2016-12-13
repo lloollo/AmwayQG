@@ -26,6 +26,7 @@ public class action {
 		public static int Total;
 		public static int Passed;
 		public static int Failed;
+		//主测试方法
 		public static void  mainaction(AppiumDriver driver){		
 	    	toolsforObj.sleepfive();//等等5S
 	    	stepresult sr = new stepresult();
@@ -54,7 +55,7 @@ public class action {
 	    				sr.setCaseID(tc.getCaseID());   				
 	    				sr.setStepActiom(tc.getCaseStep());
 	    				//步骤具体操作
-	    				action.actioncase(driver, tc);  
+	    				actioncase(driver, tc);  
 	    				//结果校验
 	    				List<String> anwLogs =ALcaseCheckresult(driver, tc,DirPathname,i);
 	    				sr.setStepResult(anwLogs.get(0));
@@ -70,6 +71,7 @@ public class action {
 	    	//3case结果统计
 	    	HtmlDoc.CompleteCount(Total,Passed,Failed);		
 		}
+		//selenium主测试方法
 		public static void  mainselenium(WebDriver driver){		
 	    	toolsforObj.sleepfive();//等等5S
 	    	stepresult sr = new stepresult();
@@ -115,6 +117,7 @@ public class action {
 	    	HtmlDoc.CompleteCount(Total,Passed,Failed);		
 		}
 		static actionDetil ad =new actionDetil();
+		//执行关键字解析
 		public static void actioncase(AppiumDriver driver, testcase tc) {
 			actionDetil ad =new actionDetil();	
 			seleniumDetil se = new seleniumDetil();
@@ -173,7 +176,9 @@ public class action {
 			case "contextNATIVE":
 				ad.contextNATIVE(driver);
 				break;					
-				
+			case "ifelse":
+				ad.doifelse(driver,tc);
+				break;	
 			//输入Url访问页面
 			case "getUrl":
 				ad.dogetUrl(driver, tc);
@@ -190,22 +195,21 @@ public class action {
 			case "clicklrighttop":
 				ad.doclicklrighttop(driver, tc);
 				break;		
-				//获取身份证号码
+			//获取身份证号码
 			case "getCardID":	
 				ad.dogetCardID(driver, tc);
-				break;
-			
-				//通过Text获取text	
-			case "getTextbytext":
+				break;			
+			//通过Text获取text	
+			case "getbytext":
 				ad.dogetTextbytext(driver, tc);
 				break;	
-			//通过Text获取name	
-			case "getTextbyAttribute":
-				ad.dogetTextbyAttribute(driver, tc);
+			//通过Text获取value	
+			case "getbyvalue":
+				ad.dogetbyvalue(driver, tc);
 				break;	
-				//通过Text获取name	
-			case "getTextbyvalue":
-				ad.dogetTextbyvalue(driver, tc);
+			//通过Text获取name	
+			case "getbyname":
+				ad.dogetbyname(driver, tc);
 				break;		
 			//清空对象里的信息
 			case "clearText":
@@ -242,8 +246,7 @@ public class action {
 			//滑动到当前对象
 			case "scrollToE":
 				ad.doscrollToE(driver, tc);
-				break;
-			
+				break;	
 			//加减乘数计算
 			case "caculator":
 				ad.doCaculator(driver, tc);
@@ -259,8 +262,7 @@ public class action {
 				//调试代码	
 			case "tiaoshi2":
 				ad.dotiaoshi2(driver);
-				break;
-			
+				break;			
 			//获取订单编号
 			case "getOrderNum":
 				ad.dogetOrderNum(driver,tc);
@@ -283,6 +285,7 @@ public class action {
 			}
 			// TODO Auto-generated method stub			 	
 		}
+		//selenium执行关键字解析
 		public static void seleniumcase(WebDriver Wdrive, testcase tc) {
 			seleniumDetil se = new seleniumDetil();
 			switch (tc.getCaseAction()) {			
@@ -319,13 +322,13 @@ public class action {
 			List<String> anlogs = new ArrayList<String>();
 			String passfailed = "pass";
 			String anwLogs = "success";	
-			if(!tc.getCaseresult().isEmpty()){
+			if(tc.getCaseresult() != null){
 				if(tc.getCaseresult().contains(";")){
 					String[] results = toolsforObj.SeparateBySemicolon(tc.getCaseresult()); 
-					String temp1 = getResulyTextFirst(driver, results[0]);
+					String temp1 = getResulyTextFirst(driver, results[0],tc.getCaseAction());
 					String temp2 = temp1;
 					if(results[1] !=null){
-						temp2 = getResulyTextSecond(driver, results[1]);
+						temp2 = getResulyTextSecond(driver, results[1],tc.getCaseAction());
 					}		
 					if((!temp1.contains(temp2))&&(!temp2.contains(temp1))){
 						passfailed = "failed";
@@ -358,15 +361,21 @@ public class action {
 			//SnapShot.JustSnapShot(driver, dirPathname, tc.getCaseID() + "-" + i+".png");
 			return anlogs;				
 		}	
-		
 		//校验第一个Text获取
-		public static String getResulyTextFirst(WebDriver driver,String ResulyT) {
+		public static String getResulyTextFirst(WebDriver driver,String ResulyT, String actions) {
 			String resulytext = ResulyT;
 			if(ResulyT.contains("#")){
-				WebElement webElement =  getElement.getElementObject(driver,ResulyT);
+				WebElement webElement =  null;
+				if(actions.contains("$")){
+					WebDriver Wdrive = getdriver(driver);
+					webElement =  getElement.getElementObject(Wdrive,ResulyT);
+				}else {
+					webElement =  getElement.getElementObject(driver,ResulyT);
+				}
+				
 				if(webElement != null){
-					if(actionDetil.gettextNow(webElement) != null){
-						resulytext = actionDetil.gettextNow(webElement);
+					if(actionDetil.gettextall(webElement) != null){
+						resulytext = actionDetil.gettextall(webElement);
 					}else if(webElement.getText()!= null){
 						resulytext = webElement.getText();
 					}	
@@ -383,7 +392,7 @@ public class action {
 			return resulytext;
 		}
 		//校验第二个Text获取
-		public static String getResulyTextSecond(WebDriver driver,String ResulyT) {
+		public static String getResulyTextSecond(WebDriver driver,String ResulyT,String actions) {
 			String resulytext = ResulyT;
 			if(resulytext == null){
 				ResulyT= "exist";
@@ -398,12 +407,13 @@ public class action {
 			}
 			return resulytext;
 		}
+		/*
+		 * 切换Driver
+		 */
 		public static WebDriver getdriver(WebDriver driver) {
 			driver = AmAppMain.webDriver;
 			return driver;
-		}
-		
-		
+		}	
 }
 /* 
 //打开通知栏

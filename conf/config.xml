@@ -8,6 +8,7 @@
 		<system>Mac</system><!-- 系统 Mac & Windows -->
 	</action>
 	<apps>
+		<sleeptime>30</sleeptime><!-- 系统校验延长时间 -->
 		<androidapps>AmwayHub</androidapps><!-- 安卓测试包名 apps文件文件下 -->
 		<webselenium>OFF</webselenium><!-- 是否启动火狐浏览器辅助 -->
 	</apps>

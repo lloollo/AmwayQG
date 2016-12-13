@@ -119,11 +119,7 @@ public class formexcel<StringSplitOptions>{
             if(ReadXml.actiononMobile.contains("IOS")){
         		j=1;
             }else {
-        		if (ReadXml.system.contains("Windows")) {
-        			j=2;
-    			}else {
-    				j=3;
-    			}
+            	j=2;		
         	}
             while(true)
             {     

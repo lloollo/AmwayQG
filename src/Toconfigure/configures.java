@@ -6,7 +6,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -17,7 +16,6 @@ import forobject.ReadXml;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
-
 public class configures {
 	//项目路径
 	static File classpathRoot = new File(System.getProperty("user.dir"));
@@ -27,6 +25,7 @@ public class configures {
     public static String appiumURL = "http://127.0.0.1:"+(String) ReadXml.readxml("action").get("interface")+"/wd/hub";
     public static String passfailed = "pass";
     public static String anwLogs  = "Success";
+    public static int sleeptime  = Integer.valueOf((String) ReadXml.readxml("apps").get("sleeptime"))   ;
     public static  Map<String, String> forTempString = new HashMap<>();  
 	public static AppiumDriver driver;
 	public static WebDriver configWebDriver(String context){
@@ -49,8 +48,9 @@ public class configures {
 		}
 		return webDriver;	
 	}
-	public static AppiumDriver configAppium() throws MalformedURLException {		
-		
+	
+	
+	public static AppiumDriver configAppium() throws MalformedURLException {			
         DesiredCapabilities capabilities = new DesiredCapabilities();  
         capabilities.setCapability(CapabilityType.BROWSER_NAME, "");      
         //读取XML配置文件，
@@ -78,5 +78,15 @@ public class configures {
 		}
 		return driver;
 		
+	}
+	public static void quirDriver(WebDriver driver){
+		try {
+			if(((String) ReadXml.readxml("apps").get("webselenium")).contains("ON")){
+				driver.quit();
+			}			
+		} catch (Exception e) {
+			System.out.println("webDriver失败");// TODO: handle exception
+		}
+			
 	}
 }

@@ -1,5 +1,4 @@
 package action;
-
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
@@ -21,7 +20,6 @@ import io.appium.java_client.android.AndroidDriver;
 import jdbc.Amojdbc;
 import mains.AmAppMain;
 import seleniums.seleniumDetil;
-
 public class actionDetil {	
 		public void dogetUrl(WebDriver driver, testcase tc) {		
 			String URLs = tc.getCaseElement();
@@ -119,7 +117,7 @@ public class actionDetil {
 			if(!tc.getCaseElement().isEmpty()){				
 				WebElement webElement =  getElement.getElementObject(driver,tc.getCaseElement());
 				if(webElement != null){	
-					String temp = gettextNow(webElement);
+					String temp = gettextall(webElement);
 					Map<String, String> elements = toolsforObj.decomposeElement(tc.getCaseElement());
 					String elementlist = elements.get("Others");
 					System.out.println(elementlist);
@@ -139,7 +137,7 @@ public class actionDetil {
 				WebElement webElement =  getElement.getElementObject(driver,tc.getCaseElement());
 				if(webElement != null){			
 					for(int i=0;i<10;i++){
-						if(gettextNow(webElement).isEmpty()){
+						if(webElement.getText().isEmpty()){
 							break;
 						}
 						webElement.clear();
@@ -324,51 +322,8 @@ public class actionDetil {
 			}
 		}
 		public void docustom(AppiumDriver driver, testcase tc) {
-			// TODO Auto-generated method stub
-			String elementlistelements = tc.getCaseElement();	
-			if(!tc.getCaseElement().isEmpty()&&tc.getCaseElement().contains(",")){
-				String[] split=toolsforObj.SeparateByComma(elementlistelements);
-				elementlistelements = split[0];
-				for (int i = 1; i < split.length; i++) {
-					String customtemp = split[i];
-					if(customtemp.contains("#")){
-						customtemp = (String) formexcel.formexcelSheetgetElement().get(customtemp.substring(customtemp.indexOf("#")+1));	
-					}else if(customtemp.contains("*")){
-						customtemp = configures.forTempString.get(customtemp);	
-					}
-					configures.forTempString.put("*customtemp"+i,customtemp);	
-				}
-			}
-			//自定义公用方法
-			if((!tc.getCaseElement().isEmpty())&&(tc.getCaseElement().contains("&"))){							
-				//获取自定义脚本的Sheet	
-				String elementlistp = elementlistelements.substring(elementlistelements.indexOf("&")+1);
-				//获取到Case包含多步
-				ArrayList<testcase>  customEleL = (ArrayList<testcase>) formexcel.formexcelSheetgetOther("custom").get("communal").get(elementlistp);
-				//执行脚本
-    			for (testcase ce : customEleL) {
-    				//步骤具体操作
-    				action.actioncase(driver, ce);     				
-				}					
-			}
-			//自定义不同方法
-			if((!tc.getCaseElement().isEmpty())&&(tc.getCaseElement().contains("$"))){							
-				String temp = "";
-				if(ReadXml.actiononMobile.contains("Android")){
-					temp = "Android";
-				}else {
-					temp = "IOS";
-				}
-				//获取自定义脚本的Sheet
-				String elementlistp =elementlistelements.substring(elementlistelements.indexOf("$")+1);
-				//获取到Case包含多步
-				ArrayList<testcase>  customEleL = (ArrayList<testcase>) formexcel.formexcelSheetgetOther("custom").get(temp).get(elementlistp);
-				//执行脚本
-    			for (testcase ce : customEleL) {
-    				//步骤具体操作
-    				action.actioncase(driver, ce);     				
-				}					
-			}
+			String elementlistelements = tc.getCaseElement();		
+			doifelse(driver,elementlistelements);
 		}
 		public void doCaculator(WebDriver driver, testcase tc) {
 			// TODO Auto-generated method stub
@@ -431,53 +386,13 @@ public class actionDetil {
 					option.selectByVisibleText(elementlist);
 					toolsforObj.sleeptow();		
 				}
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-//				
-//				String temp_option = tc.getCaseElement();
-//				String temp2_option[]=temp_option.split(";");
-//				String text_option=temp2_option[1];
-//				String temp = (String) formexcel.formexcelSheetgetElement().get(temp2_option[0].substring(1)); 
-//				int a = temp.indexOf("^");
-//		    	String textTextD = temp.substring(a+1);
-//		    	System.out.println(textTextD);
-//				WebElement webElement = driver.findElement(By.id(textTextD));;			
-//				Select option = new Select(webElement);
-//				option.selectByVisibleText(text_option);
-//				toolsforObj.sleeptow();
 			}
 		}
 		public void dotiaoshi(WebDriver driver) {
 			// TODO Auto-generated method stub 
 			System.out.println("==========开始调试==============");		
 				 toolsforObj.sleeptow();
-				 	//System.setProperty("webdriver.firefox.bin", "D:/Program Files/Mozilla firefox/firefox.exe"); 
-			        //WebDriver driver2 = new FirefoxDriver();
-//			        driver = seleniumDetil.webDriver();
-//			        driver.get("https://bc-ecomft1.amplus.com.cn");			        
-//			        driver.manage().window().maximize();				        
-//			        try {
-//						Thread.sleep(5000);
-//					} catch (InterruptedException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}			        
-//			        WebElement txtbox = driver.findElement(By.name("wd"));
-//			        txtbox.sendKeys("Glen");
-//			        
-//			        WebElement btn = driver.findElement(By.id("su"));
-//			        btn.click();
-//			        toolsforObj.sleepten();
-//			        
-			
+	
 			System.out.println("==========调试结算==============");
 		}
 		public void dotiaoshi2(AppiumDriver driver) {
@@ -501,26 +416,12 @@ public class actionDetil {
 			
 			System.out.println("==========调试结算==============");
 		}
-		private WebElement getele(String webElement,WebDriver driver) {
-			 WebElement webElements = (WebElement) driver.findElement(By.xpath(webElement));
-			 return webElements;
-		}
-		private void clickele(WebElement webElements) {
-			webElements.click();
-			toolsforObj.sleepten();		
-		}
-		private void sendkeyele(WebElement webElements,String m) {
-			webElements.sendKeys(m);;
-			toolsforObj.sleepten();		
-		}
-		
-		
-		public void dogetTextbyAttribute(WebDriver driver, testcase tc) {
+		public void dogetbyvalue(WebDriver driver, testcase tc) {
 			// TODO Auto-generated method stub
 			if(!tc.getCaseElement().isEmpty()){				
 				WebElement webElement =  getElement.getElementObject(driver,tc.getCaseElement());
 				if(webElement != null){	
-					String temp = gettextNow(webElement);
+					String temp = getbyvalue(webElement);
 					Map<String, String> elements = toolsforObj.decomposeElement(tc.getCaseElement());
 					String elementlist = elements.get("Others");
 					System.out.println(elementlist);
@@ -534,12 +435,12 @@ public class actionDetil {
 				}		
 			}
 		}
-		public void dogetTextbyvalue(WebDriver driver, testcase tc) {
+		public void dogetbyname(WebDriver driver, testcase tc) {
 			// TODO Auto-generated method stub
 			if(!tc.getCaseElement().isEmpty()){				
 				WebElement webElement =  getElement.getElementObject(driver,tc.getCaseElement());
 				if(webElement != null){	
-					String temp = webElement.getAttribute("value");
+					String temp = getbyname(webElement);
 					Map<String, String> elements = toolsforObj.decomposeElement(tc.getCaseElement());
 					String elementlist = elements.get("Others");
 					System.out.println(elementlist);
@@ -683,13 +584,38 @@ public class actionDetil {
 			}	
 			//toolsforObj.sleepfive();
 		}
-		public static String gettextNow(WebElement webElement) {
+		public static String gettextall(WebElement webElement) {
+			// TODO Auto-generated method stub
+			String temp = getbytext(webElement)+getbyname(webElement)+getbyvalue(webElement);	
+			return temp;
+		}
+		public static String getbytext(WebElement webElement) {
 			// TODO Auto-generated method stub
 			String temp = "";
-			if(ReadXml.actiononMobile.contains("Android")){//&&ReadXml.system.contains("Mac")){
+			try {
+				temp = webElement.getText();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			return temp;
+		}
+		public static String getbyname(WebElement webElement) {
+			// TODO Auto-generated method stub
+			String temp = "";
+			try {
 				temp = webElement.getAttribute("name");
-			}else {
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			return temp;
+		}
+		public static String getbyvalue(WebElement webElement) {
+			// TODO Auto-generated method stub
+			String temp = "";
+			try {
 				temp = webElement.getAttribute("value");
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
 			return temp;
 		}
@@ -708,12 +634,41 @@ public class actionDetil {
 			}
 		}
 		public void contextWeb(AppiumDriver driver) {
-			// TODO Auto-generated method stub
-			driver.context("WEBVIEW_com.amway.hub.phone");		
+			// TODO Auto-generated method stub	
+			int sleeptime = configures.sleeptime;
+			for(int i=0;i<sleeptime;i++){
+				Set<String> context = driver.getContextHandles();
+				if(context.size()>1){
+					try {
+						driver.context("WEBVIEW_com.amway.hub.phone");
+						break;
+					} catch (Exception e) {
+						// TODO: handle exception
+						System.out.println("加载页面失败！！");
+					}						
+				}
+				toolsforObj.sleepone();
+			}	
+			toolsforObj.sleepten();
 		}
 		public void contextNATIVE(AppiumDriver driver) {
 			// TODO Auto-generated method stub
-			driver.context("NATIVE_APP");		
+					
+			int sleeptime = configures.sleeptime;
+			for(int i=0;i<sleeptime;i++){
+				Set<String> context = driver.getContextHandles();
+				if(context.size()>1){
+					try {
+						driver.context("NATIVE_APP");	
+						break;
+					} catch (Exception e) {
+						// TODO: handle exception
+						System.out.println("加载页面失败！！");
+					}					
+				}
+				toolsforObj.sleepone();
+			}	
+			toolsforObj.sleepten();	
 		}
 		public void doinformation(WebDriver driver, testcase tc) {
 			// TODO Auto-generated method stub
@@ -751,10 +706,92 @@ public class actionDetil {
 				
 				
 			} catch (Exception e) {
-				// TODO: handle exception
+				
 			}
 			
+		}
+		public void doifelse(AppiumDriver driver, testcase tc) {
+			String ifString = tc.getCaseElement();
+			if(ifString.contains(":")&&ifString.contains("?")){
+				String[] split = ifString.split("\\:|\\?");
+				
+				
+				if(split.length == 3){
+					String ielement = split[0];
+					char j = 'N';
+					WebElement webElement = getElement.getObjecyByElements(driver,ielement);
+					for(int i=0;i<5;i++){
+						if(webElement !=null){
+							j = 'Y';
+							break;
+						}
+						toolsforObj.sleepone();
+						webElement = getElement.getObjecyByElements(driver,ielement);
+					}
+					switch (j) {
+					case 'Y':
+						String iactionY = split[1];
+						doifelse(driver,iactionY);
+						break;
+					case 'N':
+						String iactionN = split[2];
+						doifelse(driver,iactionN);
+						break;
+					default:		
+						break;
+					}
+				}
+			}
 		}		
+		
+		//执行自定义方法
+		public void doifelse(AppiumDriver driver,String docuntest) {	
+			String elementlistelements = docuntest;
+			//给自定义方法传参
+			if(!docuntest.isEmpty()&&docuntest.contains(",")){
+				String[] split=toolsforObj.SeparateByComma(docuntest);
+				docuntest = split[0];
+				for (int i = 1; i < split.length; i++) {
+					String customtemp = split[i];
+					if(customtemp.contains("#")){
+						customtemp = (String) formexcel.formexcelSheetgetElement().get(customtemp.substring(customtemp.indexOf("#")+1));	
+					}else if(customtemp.contains("*")){
+						customtemp = configures.forTempString.get(customtemp);	
+					}
+					configures.forTempString.put("*customtemp"+i,customtemp);	
+				}
+			}
+			//自定义公用方法
+			if((!docuntest.isEmpty())&&(docuntest.contains("&"))){							
+				//获取自定义脚本的Sheet	
+				String elementlistp = elementlistelements.substring(elementlistelements.indexOf("&")+1);
+				//获取到Case包含多步
+				ArrayList<testcase>  customEleL = (ArrayList<testcase>) formexcel.formexcelSheetgetOther("custom").get("communal").get(elementlistp);
+				//执行脚本
+    			for (testcase ce : customEleL) {
+    				//步骤具体操作
+    				action.actioncase(driver, ce);     				
+				}					
+			}
+			//自定义不同方法
+			if((!docuntest.isEmpty())&&(docuntest.contains("$"))){							
+				String temp = "";
+				if(ReadXml.actiononMobile.contains("Android")){
+					temp = "Android";
+				}else {
+					temp = "IOS";
+				}
+				//获取自定义脚本的Sheet
+				String elementlistp =elementlistelements.substring(elementlistelements.indexOf("$")+1);
+				//获取到Case包含多步
+				ArrayList<testcase>  customEleL = (ArrayList<testcase>) formexcel.formexcelSheetgetOther("custom").get(temp).get(elementlistp);
+				//执行脚本
+    			for (testcase ce : customEleL) {
+    				//步骤具体操作
+    				action.actioncase(driver, ce);     				
+				}					
+			}
+		}
 }
 
 

@@ -8,6 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import Toconfigure.configures;
+
 public class getElement {
 	
 	//处理Element字符串
@@ -17,8 +19,7 @@ public class getElement {
     	String Elements = map.get(caseElement);  		   	
     	String temp[] =toolsforObj.SeparateByCommaAndColon(Elements);
    		return temp;
-	} 
-    
+	}  
 	 //分解字符串
     public static String[] FindActiveElementfromTow(String caseElement) {
 		// TODO Auto-generated method stub
@@ -29,7 +30,7 @@ public class getElement {
    		return temp;
 	}     
 	//通过罗列的元素查找唯一对象
-		public static WebElement getElementObject(WebDriver driver, String getCaseEle) {
+	public static WebElement getElementObject(WebDriver driver, String getCaseEle) {
 			// TODO Auto-generated method stub
 			Map<String, String> elements = toolsforObj.decomposeElement(getCaseEle);
 			WebElement webEl = null;
@@ -40,7 +41,8 @@ public class getElement {
 			if(!elementlist.isEmpty()&&elementlists == null){							
 				webElement = getObjecyByElements(driver,elementlist);
 				//if(ReadXml.actiononMobile.contains("Android")){
-					for(int i=0;i<30;i++){
+				    int sleeptime = configures.sleeptime;
+					for(int i=0;i<sleeptime;i++){
 						if(webElement !=null){
 						//Android把需要操作的当前元素的位置，通过滑动调整到可操作界面上
 //							if(ReadXml.actiononMobile.contains("Android")){
@@ -55,15 +57,14 @@ public class getElement {
 							System.out.print(getCaseEle);
 						}
 						System.out.print(i);
-					}	
-				//}
-							
+					}			
 			}	
 			if(!elementlist.isEmpty()&&elementlists != null){
 				webElement = getObjecyByElements(driver,elementlist);
 				webElements = getObjecyByElements(driver,elementlists);
 				//if(ReadXml.actiononMobile.contains("Android")){
-					for(int i=0;i<10;i++){
+				int sleeptime = configures.sleeptime;
+					for(int i=0;i<sleeptime;i++){
 						webElement = getObjecyByElements(driver,elementlist);
 						webElements = getObjecyByElements(driver,elementlists);
 						if(webElement !=null||webElements!=null){
@@ -90,7 +91,7 @@ public class getElement {
 			}
 	    	return webEl;
 		} 
-		public static WebElement getObjecyByElements(WebDriver driver,String elementlist) {
+	public static WebElement getObjecyByElements(WebDriver driver,String elementlist) {
 	    	String temp = toolsforObj.mapgetElement.get(elementlist.substring(elementlist.indexOf("#")+1));  
 	    	Map<String, String> elementlMap = toolsforObj.decomposeElementDetile(temp);
 	    	WebElement webElement = null;
@@ -131,17 +132,13 @@ public class getElement {
 	    		}
 	    	}
 	    	return webElement;
-		}
-		
+		}	
 	  //分解字符串
-	    public static Map decomposeElement(String caseElement) {
+	public static Map decomposeElement(String caseElement) {
 			// TODO Auto-generated method stub
 	    	Map<String, List<String>> map = new HashMap<>();
 	    	List<String>  elementList = new ArrayList<String>() ; 			   	
-	    	String[] split = null;
-	   
-	    	 	
+	    	String[] split = null;	
 			return map;
-		}    
-	    
+		}       
 }
