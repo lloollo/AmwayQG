@@ -161,12 +161,22 @@ public class action {
 				ad.doinformation(driver,tc);
 				break;
 				//数据库查询结果
-			case "getSQL":
-				ad.dogetSql(driver, tc);
+			case "getSQLpos":
+				ad.dogetSqlpos(driver, tc);
+				break;
+			case "getSQLsoa":
+				ad.dogetSqlsoa(driver, tc);
+				break;
+			case "getSQLecard":
+				ad.dogetSqlecard(driver, tc);
 				break;
 				//自定义脚本方法	
 			case "custom":
 				ad.docustom(driver, tc);
+				break;
+				//自定义脚本方法	
+			case "stativit":
+				ad.dostativit(driver, tc);
 				break;
 				//切换mobile-web
 			case "contextWeb":
@@ -186,6 +196,10 @@ public class action {
 			//重启APP，并输入URL访问
 			case "getUrlLaunch":
 				ad.dogetUrlLaunch(driver, tc);
+				break;	
+				//重启APP，并输入URL访问
+			case "reset":
+				ad.doreset(driver, tc);
 				break;	
 				//点击左上角
 			case "clicklefttop":
@@ -278,7 +292,12 @@ public class action {
 			//求和ß
 			case "sum":
 				ad.dosum(driver,tc);
+				break;
+				//连接字符串
+			case "append":
+				ad.doappend(tc);
 				break;	
+				
 			default:
 				System.out.println("操作关键字错误！！");
 				break;
@@ -322,7 +341,11 @@ public class action {
 			List<String> anlogs = new ArrayList<String>();
 			String passfailed = "pass";
 			String anwLogs = "success";	
-			if(tc.getCaseresult() != null){
+			String Caseresult = tc.getCaseresult();
+			if(tc.getCaseresult()!= null){
+				Caseresult.replace(" ", "");
+			}
+			if(tc.getCaseresult() != null && (!"".equals(Caseresult))){
 				if(tc.getCaseresult().contains(";")){
 					String[] results = toolsforObj.SeparateBySemicolon(tc.getCaseresult()); 
 					String temp1 = getResulyTextFirst(driver, results[0],tc.getCaseAction());
@@ -341,8 +364,7 @@ public class action {
 							break;
 						}
 						toolsforObj.sleeptow();
-					}
-					
+					}		
 					if(webElement == null){			
 						passfailed ="failed";
 						anwLogs ="not find element";
@@ -356,7 +378,7 @@ public class action {
 			anlogs.add(anwLogs);
 			//手机截屏
 			if(passfailed.equals("failed")){
-				SnapShot.JustSnapShot(driver, dirPathname, tc.getCaseID() + "-" + i+".png");
+				//SnapShot.JustSnapShot(driver, dirPathname, tc.getCaseID() + "-" + i+".png");
 			}
 			//SnapShot.JustSnapShot(driver, dirPathname, tc.getCaseID() + "-" + i+".png");
 			return anlogs;				

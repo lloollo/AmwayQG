@@ -19,8 +19,8 @@ public class formexcel<StringSplitOptions>{
 	 *每一行解析到list中，
 	 *每一个case再存放到Map中
 	 */
-	static String CaseExcel = "conf/"+ReadXml.readxml("action").get("Excel-name")+".xls";
-	
+	//static String CaseExcel = "conf/"+ReadXml.readxml("action").get("Excel-name")+".xls";
+	static String CaseExcel = System.getProperty("user.dir")+"Case/"+ReadXml.readxml("action").get("Excel-name")+".xls";
 	//获取Case
 	public static Map formexcelSheetgetCase() { 	
         int i;     

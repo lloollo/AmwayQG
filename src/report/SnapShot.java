@@ -95,6 +95,7 @@ public class SnapShot {
 	}
 	public static void JustSnapShot(WebDriver driver,String dirPath,String picName) {
 		File screenShotFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		
 		try {
 			FileUtils.copyFile(screenShotFile,new File(dirPath + "/images/" + picName));
 		} catch (IOException e) {

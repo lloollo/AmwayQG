@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
+
 import Toconfigure.configures;
 import domain.testcase;
 import forobject.ReadXml;
@@ -298,7 +300,7 @@ public class actionDetil {
 				}		
 			}
 		}
-		public void dogetSql(WebDriver driver, testcase tc) {
+		public void dogetSqlpos(WebDriver driver, testcase tc) {
 			// TODO Auto-generated method stub
 			if(!tc.getCaseElement().isEmpty()){		
 				Map<String, String> elements = toolsforObj.decomposeElement(tc.getCaseElement());
@@ -311,7 +313,7 @@ public class actionDetil {
 				}
 				String elementlistp = (String) formexcel.formexcelSheetgetElement().get(elementlistelements.substring(elementlistelements.indexOf("#")+1));
 				if(elementlistp != null){
-					String temp =Amojdbc.getDataFromJdbc(elementlistp,elementlistelemes);
+					String temp =Amojdbc.getDataFromJdbcpos(elementlistp,elementlistelemes);
 					String elementlistOthers = elements.get("Others");
 					if(elementlistOthers != null){
 						if(elementlistOthers.contains("*")){
@@ -388,11 +390,20 @@ public class actionDetil {
 				}
 			}
 		}
-		public void dotiaoshi(WebDriver driver) {
+		public void dotiaoshi(AppiumDriver driver) {
 			// TODO Auto-generated method stub 
 			System.out.println("==========开始调试==============");		
 				 toolsforObj.sleeptow();
-	
+				// toolsforObj.sleepten();
+				 System.out.println(driver.getContext());
+				WebElement element1 = driver.findElement(By.xpath("//android.view.View[@content-desc=\"全程代办\"]"));
+				element1.click();
+				//安装APP
+					//driver.installApp(appPath);					
+					//判断应用是否已安装
+					//driver.isAppInstalled("package name");
+				 
+				 toolsforObj.sleepten();
 			System.out.println("==========调试结算==============");
 		}
 		public void dotiaoshi2(AppiumDriver driver) {
@@ -634,41 +645,47 @@ public class actionDetil {
 			}
 		}
 		public void contextWeb(AppiumDriver driver) {
-			// TODO Auto-generated method stub	
 			int sleeptime = configures.sleeptime;
 			for(int i=0;i<sleeptime;i++){
 				Set<String> context = driver.getContextHandles();
-				if(context.size()>1){
-					try {
-						driver.context("WEBVIEW_com.amway.hub.phone");
+				for (String contexts : context) {
+					System.out.println(contexts);
+					if(contexts.contains("WEBVIEW")){
+						driver.context(contexts);
+						System.out.println("切换到"+ driver.getContext());
 						break;
-					} catch (Exception e) {
-						// TODO: handle exception
-						System.out.println("加载页面失败！！");
-					}						
+					}
 				}
+				if(driver.getContext().contains("WEBVIEW")){
+					break;
+				}
+				if(!driver.getContext().contains("WEBVIEW")){
+					if(i==0){
+						System.out.print("切换中");
+					}
+					System.out.print(i);
+				}
+				
 				toolsforObj.sleepone();
-			}	
-			toolsforObj.sleepten();
+			}
 		}
 		public void contextNATIVE(AppiumDriver driver) {
-			// TODO Auto-generated method stub
-					
+			// TODO Auto-generated method stub			
 			int sleeptime = configures.sleeptime;
 			for(int i=0;i<sleeptime;i++){
 				Set<String> context = driver.getContextHandles();
-				if(context.size()>1){
-					try {
-						driver.context("NATIVE_APP");	
+				for (String contexts : context) {
+					if(contexts.contains("NATIVE_APP")){
+						driver.context(contexts);
+						System.out.println("切换到"+ driver.getContext());
 						break;
-					} catch (Exception e) {
-						// TODO: handle exception
-						System.out.println("加载页面失败！！");
-					}					
+					}
+				}
+				if(driver.getContext().contains("NATIVE_APP")){
+					break;
 				}
 				toolsforObj.sleepone();
 			}	
-			toolsforObj.sleepten();	
 		}
 		public void doinformation(WebDriver driver, testcase tc) {
 			// TODO Auto-generated method stub
@@ -750,7 +767,7 @@ public class actionDetil {
 			//给自定义方法传参
 			if(!docuntest.isEmpty()&&docuntest.contains(",")){
 				String[] split=toolsforObj.SeparateByComma(docuntest);
-				docuntest = split[0];
+				elementlistelements = split[0];
 				for (int i = 1; i < split.length; i++) {
 					String customtemp = split[i];
 					if(customtemp.contains("#")){
@@ -791,6 +808,87 @@ public class actionDetil {
     				action.actioncase(driver, ce);     				
 				}					
 			}
+		}
+		public void doreset(AppiumDriver driver, testcase tc) {
+				driver.resetApp();
+		}
+		public void dostativit(AppiumDriver driver, testcase tc) {
+			((AndroidDriver) driver).startActivity("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
+		}
+		public void dogetSqlsoa(AppiumDriver driver, testcase tc) {
+			// TODO Auto-generated method stub
+			if(!tc.getCaseElement().isEmpty()){		
+				Map<String, String> elements = toolsforObj.decomposeElement(tc.getCaseElement());
+				String elementlistelements = elements.get("elements");		
+				String[] elementlistelemes=null;
+				if(elementlistelements.contains(",")){
+					String[] elementlistelem = toolsforObj.SeparateByComma(elementlistelements);	
+					elementlistelements = elementlistelem[0];
+					elementlistelemes = elementlistelem;
+				}
+				String elementlistp = (String) formexcel.formexcelSheetgetElement().get(elementlistelements.substring(elementlistelements.indexOf("#")+1));
+				if(elementlistp != null){
+					String temp =Amojdbc.getDataFromJdbcsoa(elementlistp,elementlistelemes);
+					String elementlistOthers = elements.get("Others");
+					if(elementlistOthers != null){
+						if(elementlistOthers.contains("*")){
+							configures.forTempString.put(elementlistOthers,temp);	
+						}	
+					}
+				}								
+			}
+		}
+		public void dogetSqlecard(AppiumDriver driver, testcase tc) {
+			// TODO Auto-generated method stub
+			if(!tc.getCaseElement().isEmpty()){		
+				Map<String, String> elements = toolsforObj.decomposeElement(tc.getCaseElement());
+				String elementlistelements = elements.get("elements");		
+				String[] elementlistelemes=null;
+				if(elementlistelements.contains(",")){
+					String[] elementlistelem = toolsforObj.SeparateByComma(elementlistelements);	
+					elementlistelements = elementlistelem[0];
+					elementlistelemes = elementlistelem;
+				}
+				String elementlistp = (String) formexcel.formexcelSheetgetElement().get(elementlistelements.substring(elementlistelements.indexOf("#")+1));
+				if(elementlistp != null){
+					String temp =Amojdbc.getDataFromJdbcecard(elementlistp,elementlistelemes);
+					String elementlistOthers = elements.get("Others");
+					if(elementlistOthers != null){
+						if(elementlistOthers.contains("*")){
+							configures.forTempString.put(elementlistOthers,temp);	
+						}	
+					}
+				}								
+			}
+		}
+		public void doappend(testcase tc) {
+			// TODO Auto-generated method stub
+			String  getCaseElem = tc.getCaseElement();
+			if(getCaseElem.contains(";")){	    		
+		    	int b = getCaseElem.indexOf(";");
+		    	String textEleD = getCaseElem.substring(0, b);
+		    	String textTextD = getCaseElem.substring(b+1);
+		    	String temp = textEleD;
+		    	if(textEleD.contains(",")){
+		    		String tempover = "";
+		    		String[] split = textEleD.split(",");			    	
+			    	for (String s : split) {
+			    		if(s.contains("*")){
+			    			s=configures.forTempString.get(s);			
+			    		}  
+			    		if(s.contains("#")){
+			    			s=toolsforObj.mapgetElement.get(s.substring(s.indexOf("#")+1)); 
+			    		}
+			    		tempover = tempover+s;
+					}
+			    	temp = tempover;
+		    	}
+		    	
+		    	if(textTextD.contains("*")){
+					configures.forTempString.put(textTextD,temp);	
+					System.out.println(temp+"========");
+				}			    		
+	    	}
 		}
 }
 
