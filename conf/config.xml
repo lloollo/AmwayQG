@@ -3,13 +3,13 @@
     <!-- Android -->
     <action>
 		<platformName>AndroidL</platformName><!-- 设置测试的手机 -->
-		<Excel-name>Amway_Element_WeChat</Excel-name><!-- 设置测试的Case的Excel-name-->		
+		<Excel-name>Amway_Element_CaseTest</Excel-name><!-- 设置测试的Case的Excel-name-->		
 		<interface>4723</interface><!-- 设置Appuim的测试接口，4723默认端口 -->
 		<system>Mac</system><!-- 系统 Mac & Windows -->
 	</action>
 	<apps>
 		<sleeptime>10</sleeptime><!-- 系统校验延长时间 -->
-		<androidapps>AmwayHubout</androidapps><!--AmwayHub weixin Chrome安卓测试包名 apps文件文件下 -->
+		<androidapps>AmwayHub</androidapps><!--AmwayHub weixin Chrome安卓测试包名 apps文件文件下 -->
 		<webselenium>OFF</webselenium><!-- 是否启动火狐浏览器辅助 -->
 	</apps>
     <Android>

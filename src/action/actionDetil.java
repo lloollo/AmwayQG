@@ -99,7 +99,7 @@ public class actionDetil {
 					if(elementlist.contains("*")){
 						temp = configures.forTempString.get(elementlist);					
 					}			
-					System.out.println(tc.getCaseElement());
+					System.out.println(tc.getCaseElement()+"....."+temp);
 					sendKysNow(webElement,temp);		
 				}		
 			}
@@ -487,6 +487,8 @@ public class actionDetil {
 					System.out.println(tc.getCaseElement());
 					int x = webElement.getLocation().x;
 					int y = webElement.getLocation().y;
+					x=x-40;
+					y=y+40;
 					driver.swipe(x, y, x, y, 1);		
 				}		
 			}
@@ -573,10 +575,13 @@ public class actionDetil {
 					int x = webElement.getLocation().x;
 					int y = webElement.getLocation().y;
 					int w = webElement.getSize().width;
-					x=x+w-35;
+					x=x-35;
 					y=y+55;
-					System.out.println(x+"=="+y);
-					driver.swipe(x, y, x, y, 1);		
+					int width = driver.manage().window().getSize().width;
+			        int height = driver.manage().window().getSize().height;
+					System.out.println(x+"=="+y+"=="+width+"=="+height);
+					driver.swipe(x, y, x, y, 10);	
+					//driver.switchTo().window("");
 				}		
 			}
 		}
@@ -889,6 +894,18 @@ public class actionDetil {
 					System.out.println(temp+"========");
 				}			    		
 	    	}
+		}
+		public void doscrollToUp(AppiumDriver driver, testcase tc) {
+			String times = tc.getCaseElement();
+			int i = 0 ;
+			try {
+				i= Integer.valueOf(times);		
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			for (int j = 0; j < i; j++) {
+				toolsforObj.swipeToUp(driver);
+			}
 		}
 }
 

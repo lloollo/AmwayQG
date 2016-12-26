@@ -260,6 +260,10 @@ public class action {
 			//滑动到当前对象
 			case "scrollToE":
 				ad.doscrollToE(driver, tc);
+				break;				
+				//滑动到当前对象
+			case "scrollToup":
+				ad.doscrollToUp(driver, tc);
 				break;	
 			//加减乘数计算
 			case "caculator":

@@ -165,6 +165,7 @@ public class toolsforObj {
 		}  
 	    //向上滑动半屏幕
 	    public static void swipeToUp(AppiumDriver driver) {
+	    	sleeptow();
 			if(ReadXml.actiononMobile.contains("Android")){
 				int width = driver.manage().window().getSize().width;
 		        int height = driver.manage().window().getSize().height;
